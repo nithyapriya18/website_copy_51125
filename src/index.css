@@ -1,0 +1,165 @@
+/* -----------------------------------------------------------
+   🧩 FONT IMPORTS
+   Using Fontshare for Satoshi (official source, no 400 errors)
+   and Google Fonts for Inter.
+----------------------------------------------------------- */
+/* --- FONT IMPORTS (fixed 400 error) --- */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -----------------------------------------------------------
+   🎨 GLOBAL DESIGN SYSTEM
+   Defines the color palette, gradients, fonts, and layout rules.
+   All colors are in HSL format for consistency.
+----------------------------------------------------------- */
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 98%;
+    --muted: 190 50% 30%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 190 95% 50%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 190 70% 25%;
+    --input: 0 0% 5%;
+    --ring: 0 0% 98%;
+    --radius: 0.5rem;
+    --primary: 190 95% 50%;
+    --primary-foreground: 0 0% 0%;
+    --accent-1: 175 80% 44%;
+    --accent-2: 190 95% 50%;
+    --peacock-blue: 210 100% 48%;
+    --peacock-cyan: 190 95% 50%;
+    --peacock-green: 175 80% 44%;
+    --secondary: 190 95% 50%;
+    --secondary-foreground: 0 0% 0%;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 190 95% 50%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 190 95% 50%;
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 190 70% 25%;
+    --sidebar-ring: 0 0% 98%;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    @apply bg-background text-foreground;
+  }
+
+  /* Fix text selection color - black text on cyan background */
+  ::selection {
+    background-color: hsl(190, 95%, 50%) !important;
+    color: #000000 !important;
+  }
+
+  ::-moz-selection {
+    background-color: hsl(190, 95%, 50%) !important;
+    color: #000000 !important;
+  }
+
+  * {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 600;
+    @apply text-foreground;
+  }
+
+  p, span, a, button {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+  }
+}
+
+/* -----------------------------------------------------------
+   🧩 COMPONENT STYLES
+----------------------------------------------------------- */
+@layer components {
+  /* Gradient text - Teal to Cyan */
+  .text-gradient {
+    @apply bg-gradient-to-r from-[hsl(var(--peacock-green))] to-[hsl(var(--peacock-cyan))] bg-clip-text text-transparent;
+  }
+
+  /* Apply gradient to headings automatically */
+  h1 .text-gradient,
+  h2 .text-gradient,
+  h3 .text-gradient,
+  h4 .text-gradient,
+  h5 .text-gradient,
+  h6 .text-gradient {
+    @apply bg-gradient-to-r from-[hsl(var(--peacock-green))] to-[hsl(var(--peacock-cyan))] bg-clip-text text-transparent;
+  }
+
+  /* Gradient buttons */
+  .bg-gradient-peacock {
+    @apply !bg-gradient-to-r !from-[hsl(var(--accent-1))] !to-[hsl(var(--accent-2))] !text-white hover:!opacity-90;
+  }
+
+  /* Subtle glow effect */
+  .glow-peacock {
+    @apply !shadow-lg !shadow-cyan-500/50;
+  }
+
+  /* Logo and footer font using Satoshi */
+  .font-satoshi {
+    font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+
+  footer {
+    font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+/* -----------------------------------------------------------
+   ⚙️ UTILITY CLASSES
+----------------------------------------------------------- */
+@layer utilities {
+  .container {
+    @apply mx-auto w-full px-6 md:px-10 lg:px-16;
+  }
+
+  /* -------------------------------------------
+     🌀 Apple-style scroll deck layout
+     Used with <ScrollDeckSection /> component
+  ------------------------------------------- */
+  .scroll-section {
+    position: relative;
+    height: 200vh; /* Each section scrolls through 2x viewport height */
+  }
+
+  .scroll-inner {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+    overflow: hidden;
+  }
+
+  .scroll-content {
+    width: 100%;
+    height: 100%;
+    will-change: transform, opacity;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+  }
+}
